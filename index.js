@@ -11,7 +11,7 @@ RequestLog contains objects of shape:
     timestamp: Date,
   }
 */
-const RequestLog = Database.createCollection("RequestLog");
+export const RequestLog = Database.createCollection("RequestLog");
 /* Database Functions Available:
     Collection.find()
     Collection.findOne()

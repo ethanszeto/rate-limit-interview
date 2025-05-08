@@ -1,6 +1,7 @@
 import request from "supertest";
 import server from "../index.js";
 import { Database } from "../.database/database.js";
+import { RequestLog } from "../index.js";
 
 beforeEach(() => {
   Database.collections = {};
@@ -11,7 +12,7 @@ describe("Rate Limiting Middleware", () => {
     return request(server).post("/request").send({ user_id: userId });
   };
 
-  test("Allows 10 requests from same user", async () => {
+  test("Allows 10 requests same user", async () => {
     for (let i = 0; i < 10; i++) {
       const res = await sendRequest("user-A");
       expect(res.statusCode).toBe(200);
@@ -19,16 +20,17 @@ describe("Rate Limiting Middleware", () => {
     }
   });
 
-  test("Blocks 11th request from same user", async () => {
+  test("Blocks 11th request same user", async () => {
     for (let i = 0; i < 10; i++) {
-      await sendRequest("user-B");
+      await sendRequest("user-A");
     }
-    const res = await sendRequest("user-B");
+    const res = await sendRequest("user-A");
     expect(res.statusCode).toBe(429);
     expect(res.body.error).toBe("Rate limit exceeded");
+    expect(await RequestLog.countDocuments()).toBeLessThan(11);
   });
 
-  test("Blocks 11th request across different users", async () => {
+  test("Blocks 11th request different users", async () => {
     const userSequence = ["user-1", "user-2", "user-3", "user-4", "user-5", "user-6", "user-7", "user-8", "user-9", "user-10"];
 
     for (const userId of userSequence) {
