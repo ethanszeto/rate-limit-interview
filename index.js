@@ -13,13 +13,13 @@ RequestLog contains objects of shape:
 */
 export const RequestLog = Database.createCollection("RequestLog");
 /* Database Functions Available:
-    Collection.find()
-    Collection.findOne()
-    Collection.create()
-    Collection.findOneAndUpdate()
-    Collection.delete()
-    Collection.exists()
-    Collection.countDocuments()
+    Collection.find(query)
+    Collection.findOne(query)
+    Collection.create(doc)
+    Collection.findOneAndUpdate(query, updates, options)
+    Collection.delete(query)
+    Collection.exists(query)
+    Collection.countDocuments(query)
 */
 
 //////////////////////////
