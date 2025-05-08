@@ -31,6 +31,13 @@ export const RequestLog = Database.createCollection("RequestLog");
  * requests to any endpoint to 10 per second,
  * and no more.
  *
+ * @TODO Fix this incorrect implementation of the
+ * Express Rate Limit Middleware.
+ *
+ * There are 7 key improvements to make:
+ * - Some are bug fixes
+ * - Some are architectural optimizations
+ *
  * @param {Request} req
  * @param {Response} res
  * @param {Function} next
