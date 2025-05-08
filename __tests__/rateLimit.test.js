@@ -4,7 +4,7 @@ import { Database } from "../.database/database.js";
 import { RequestLog } from "../index.js";
 
 beforeEach(() => {
-  Database.collections = {};
+  RequestLog.clear();
 });
 
 describe("Rate Limiting Middleware", () => {
