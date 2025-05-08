@@ -45,7 +45,7 @@ export const RequestLog = Database.createCollection("RequestLog");
  */
 async function rateLimit(req, res, next) {
   const now = Date.now();
-  const cutoff = now - 60000;
+  const cutoff = now - 1000;
 
   await RequestLog.create({ userId: req.body.user_id, timestamp: now });
 
